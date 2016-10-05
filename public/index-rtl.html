@@ -1,33 +1,45 @@
-<html class="no-js" lang="" ng-app="HealthyTrackerUS">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>My little dashboard</title>
-    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Bootstrap Admin Template</title>
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Core CSS RTL-->
+    <link href="css/bootstrap-rtl.min.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/sb-admin-rtl.css" rel="stylesheet">
+
     <!-- Morris Charts CSS -->
     <link href="css/plugins/morris.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <!-- SPELLS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <!-- load jquery -->
-    <!-- load angular -->
-    <script src="js/main.js"></script>
-    <script src="js/service/state-service.js"></script>
-    <script src="js/service/health-ranking-service.js"></script>
-    <!--<link rel="stylesheet" href="css/main.css"> -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
 
-<body ng-controller="MainController">
+<body>
+
     <div id="wrapper">
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -38,10 +50,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!-- <a class="navbar-brand" href="index.html">US Healthy Ranking</a> -->
+                <a class="navbar-brand" href="index.html">SB Admin</a>
             </div>
             <!-- Top Menu Items -->
-            <!-- <ul class="nav navbar-right top-nav">
+            <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
@@ -140,11 +152,11 @@
                         </li>
                     </ul>
                 </li>
-            </ul> -->
+            </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <!-- <div ng-hide='true' class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li>
                         <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
@@ -176,40 +188,45 @@
                     <li>
                         <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
                     </li>
                 </ul>
-            </div> -->
+            </div>
             <!-- /.navbar-collapse -->
         </nav>
+
         <div id="page-wrapper">
-            <div class="container">
+
+            <div class="container-fluid">
+
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Health Rankings
+                            Dashboard <small>Statistics Overview</small>
                         </h1>
-                        <!-- <ol class="breadcrumb">
+                        <ol class="breadcrumb">
                             <li class="active">
                                 <i class="fa fa-dashboard"></i> Dashboard
                             </li>
-                        </ol> -->
+                        </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-                <!-- <div class="row">
+
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i> <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
+                            <i class="fa fa-info-circle"></i>  <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <!-- /.row -->
+
                 <div class="row">
-                    <!-- <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <div class="row">
@@ -296,50 +313,25 @@
                                 </div>
                             </a>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <!-- /.row -->
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="panel panel-default">
-                            
-                            <form class="form-inline" role="form">
-                                <div class="form-group">
-                                    <label for="stateSelector">Select State</label>
-                                    <select name="" id="stateSelector" class="form-control" ng-model="selectedStateId" ng-change="healthyTracker.updateSelectedState(selectedStateId)">
-                                        <option ng-repeat="state in healthyTracker.usAllStates | orderBy" value="{{state.id}}">
-                                            {{state.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="form-group" ng-hide="!healthyTracker.selectedState">
-                                    <label for="stateSelector">Select County</label>
-                                    <select name="" id="countySelector" class="form-control" ng-model="selectedCountyId" ng-change="healthyTracker.updateSelectedCounty(selectedCountyId)">
-                                        <option ng-repeat="county in healthyTracker.selectedState.counties | orderObjectBy:'name'" value="{{county.id}}">
-                                            {{county.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <button type="button" ng-click="healthyTracker.addCountyToCompare()" class="btn btn-primary">Add to compare</button>
-                            </form>
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
+                            </div>
                             <div class="panel-body">
-                                <!-- <div id="morris-area-chart"></div> -->
+                                <div id="morris-area-chart"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <tr ng-repeat="measure in healthyTracker.measureFactors">
-                                <th>{{measure.name}}</th>
-                                <td ng-repeat="county in healthyTracker.comparingCounties"></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
                 <!-- /.row -->
-                <!-- <div class="row">
+
+                <div class="row">
                     <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -473,20 +465,29 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <!-- /.row -->
+
             </div>
             <!-- /.container-fluid -->
+
         </div>
         <!-- /#page-wrapper -->
+
     </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
     <script src="js/jquery.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
     <!-- Morris Charts JavaScript -->
     <script src="js/plugins/morris/raphael.min.js"></script>
     <script src="js/plugins/morris/morris.min.js"></script>
     <script src="js/plugins/morris/morris-data.js"></script>
+
 </body>
 
 </html>

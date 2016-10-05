@@ -1,16 +1,16 @@
 app.factory('StateService', ['$http', function($http) {
-   var stateService = {
-   	getAllStates: getAllStates,
-   	getAllCountyByState : getAllCountyByState
-   };
-   
-   function getAllStates(callback) {
-   	$http.get('/api/common/states').success(callback);
-   }
+    var stateService = {
+        getAllStates: getAllStates,
+        getAllCountyByState: getAllCountyByState
+    };
 
-   function getAllCountyByState(stateId, callback) {
-   	$http.get('/api/common/counties/'+stateId).success(callback);
-   }
-   
-   return stateService;
-}]); 
+    function getAllStates() {
+        return $http.get('/api/common/states');
+    }
+
+    function getAllCountyByState(stateId) {
+        return $http.get('/api/common/counties/' + stateId);
+    }
+
+    return stateService;
+}]);

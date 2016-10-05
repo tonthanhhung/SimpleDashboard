@@ -30,7 +30,6 @@ console.log("App listening on port 8080");
 var apiHostname = 'http://www.countyhealthrankings.org';
 app.get('/api/show', function(req, res) {
 
-    var dataRs;
     request({
         uri: apiHostname + '/chr/data/compare/2015/06?counties=24_011+04_005+04_012+10_003+10_005+24_005',
         json: true,
@@ -57,12 +56,14 @@ app.get('/api/common/states', function(req, res) {
 })
 
 app.get('/api/common/counties/:stateId', function(req, res) {
+    console.log(apiHostname + '/chr/data/county/2016/' + req.params.stateId + '/baca');
     request({
-        uri: apiHostname + '/chr/data/county/2016/' + req.params.stateId + '/all',
+        uri: apiHostname + '/chr/data/county/2016/' + req.params.stateId + '/baca',
         json: true,
         method: 'GET'
     }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
+            console.log(response);
             res.json(body);
         }
     })
