@@ -12,7 +12,7 @@ app.controller('MainController', ['$scope', '$http', 'StateService', 'HealthRank
         selectedCounty: null,
         updateSelectedState: updateSelectedState,
         updateSelectedCounty: updateSelectedCounty,
-        measureFactors: {},
+        measureFactorsData: [],
         comparingCounties: [],
         addCountyToCompare: addCountyToCompare,
     }
@@ -23,13 +23,59 @@ app.controller('MainController', ['$scope', '$http', 'StateService', 'HealthRank
         healthyTracker.comparingCounties.push(healthyTracker.selectedCounty);
         $scope.selectedStateId = -1;
         healthyTracker.selectedState = null;
-        healthyTracker.selectedCounty={};
-        console.debug("selected compare", healthyTracker.comparingCounties);
+        healthyTracker.selectedCounty = {};
+        updateCompareData();
+    }
+
+    function updateCompareData() {
+        var countyStateIDs = healthyTracker.comparingCounties.map(function(item) {
+                return item.state_fips + "_" + item.county_fips;
+            })
+            // countyStateIDs (array), month year
+        HealthRankingService.getCompareHealthRankingCountiesResult(countyStateIDs, 2015).success(function(data) {
+            var _counties = data.counties;
+            var newTable = [];
+            var measuresTable = [];
+            healthyTracker.measureFactors = data.measures;
+            console.log('county avail:',_counties);
+            for (id in _counties) {
+            	if (id == "000") continue;
+                var _county = _counties[id];
+                console.log('LOOK AT ME',_counties[id]);
+                var _countyMeasure = _county.measures;
+                var measuresForCounty = [];
+                for (cmid in _countyMeasure) {
+                	if (!_countyMeasure[cmid]) {
+                		console.error(cmid,_countyMeasure);
+                		continue;
+                	}
+                    measuresForCounty.push(_countyMeasure[cmid].data);
+                }
+                measuresTable.push(measuresForCounty);
+            }
+            var sortedMeasures = data.measures.sort(function(a, b) {
+                return (+a.id) - (+b.id);
+            });
+            var arrayOfSorredMeasureFactor = sortedMeasures.map(function(item) {
+                return item.nameFull;
+            })
+            var newMeasureTable = measuresTable[0].map(function(col, i) {
+                return measuresTable.map(function(row) {
+                    return row[i];
+                })
+            });
+            newMeasureTable.map(function(row2, j) {
+                return row2.unshift(arrayOfSorredMeasureFactor[j]);
+            });
+
+            healthyTracker.measureFactorsData = newMeasureTable;
+            console.debug(newMeasureTable)
+        });
     }
 
     function updateSelectedState(stateId) {
         healthyTracker.selectedState = healthyTracker.usAllStates[+stateId];
-        console.log("selectedstate", healthyTracker.selectedState);
+        // console.log("selectedstate", healthyTracker.selectedState);
     }
 
     function updateSelectedCounty(countyId) {
@@ -58,15 +104,6 @@ app.controller('MainController', ['$scope', '$http', 'StateService', 'HealthRank
 
     function initController() {
         loadAllState();
-        StateService.getAllCountyByState(48, function(data) {
-            console.log(data);
-            // body...
-        });
-
-        HealthRankingService.getCompareHealthRankingCountiesResult(['24_011', '04_005', '04_012', '10_003', '10_005', '24_005'], 2015, 6)
-            .success(function(data) {
-                console.debug(data)
-            });
     }
 
 }])

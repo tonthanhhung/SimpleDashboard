@@ -329,14 +329,30 @@
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="table-responsive">
                         <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="measureFactor in healthyTracker.measureFactorsData">
+                                    <td>{{measureFactor[0]}}</td>
+                                    <td ng-repeat="county in healthyTracker.comparingCounties track by $idex">{{measureFactor[$idex+1]}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="table-responsive">
+                        <table class="table table-hover">
                             <tr ng-repeat="measure in healthyTracker.measureFactors">
-                                <th>{{measure.name}}</th>
+                                <th>{{measure.nameFull}}</th>
                                 <td ng-repeat="county in healthyTracker.comparingCounties"></td>
                             </tr>
                         </table>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- /.row -->
                 <!-- <div class="row">
