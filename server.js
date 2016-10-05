@@ -27,26 +27,26 @@ console.log("App listening on port 8080");
 // routes ======================================================================
 
 // api ---------------------------------------------------------------------
-// get all todos
+var apiHostname = 'http://www.countyhealthrankings.org';
 app.get('/api/show', function(req, res) {
 
     var dataRs;
     request({
-        uri: 'http://www.countyhealthrankings.org/chr/data/compare/2015/06?counties=24_011+04_005+04_012+10_003+10_005+24_005',
+        uri: apiHostname + '/chr/data/compare/2015/06?counties=24_011+04_005+04_012+10_003+10_005+24_005',
         json: true,
         method: 'GET'
     }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            
+
             res.json(body);
         }
     });
 
 });
 
-app.get('/api/common/states', function (req, res) {
+app.get('/api/common/states', function(req, res) {
     request({
-        uri: 'http://www.countyhealthrankings.org/chr/data/states/2016',
+        uri: apiHostname + '/chr/data/states/2016',
         json: true,
         method: 'GET'
     }, function(error, response, body) {
@@ -56,10 +56,9 @@ app.get('/api/common/states', function (req, res) {
     })
 })
 
-app.get('/api/common/counties/:stateId', function (req, res) {
-    console.log('http://www.countyhealthrankings.org/chr/data/county/2016/'+req.params.stateId+'/all');
+app.get('/api/common/counties/:stateId', function(req, res) {
     request({
-        uri: 'http://www.countyhealthrankings.org/chr/data/county/2016/'+req.params.stateId+'/all',
+        uri: apiHostname + '/chr/data/county/2016/' + req.params.stateId + '/all',
         json: true,
         method: 'GET'
     }, function(error, response, body) {
@@ -69,6 +68,21 @@ app.get('/api/common/counties/:stateId', function (req, res) {
     })
 })
 
+app.get('/api/health/compare/:year/:month', function(req, res) {
+    // http://www.countyhealthrankings.org/chr/data/compare/2015/6?counties=24_011+04_005+04_012+10_003+10_005+24_005
+    var year = req.params.year;
+    var month = req.params.month;
+    var counties = req.query.counties;
+    request({
+        uri: apiHostname + '/chr/data/compare/' + year + '/' + month + '?counties=' + counties,
+        json: true,
+        method: 'GET'
+    }, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.json(body);
+        }
+    });
+})
 
 // application -------------------------------------------------------------
 app.get('*', function(req, res) {

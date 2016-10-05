@@ -1,5 +1,5 @@
 app.factory('StateService', ['$http', function($http) {
-   var service = {
+   var stateService = {
    	getAllStates: getAllStates,
    	getAllCountyByState : getAllCountyByState
    };
@@ -12,5 +12,5 @@ app.factory('StateService', ['$http', function($http) {
    	$http.get('/api/common/counties/'+stateId).success(callback);
    }
    
-   return service;
+   return stateService;
 }]); 
