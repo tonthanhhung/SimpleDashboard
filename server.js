@@ -37,12 +37,24 @@ app.get('/api/show', function(req, res) {
         method: 'GET'
     }, function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            // console.log(body) // Print the google web page.
-            res.json(body); // return all todos in JSON format
+            
+            res.json(body);
         }
-    })
+    });
 
 });
+
+app.get('/api/common/states', function (req, res) {
+    request({
+        uri: 'http://www.countyhealthrankings.org/chr/data/states/2016',
+        json: true,
+        method: 'GET'
+    }, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.json(body);
+        }
+    })
+})
 // application -------------------------------------------------------------
 app.get('*', function(req, res) {
     res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
