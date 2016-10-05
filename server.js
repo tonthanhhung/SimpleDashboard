@@ -55,6 +55,21 @@ app.get('/api/common/states', function (req, res) {
         }
     })
 })
+
+app.get('/api/common/counties/:stateId', function (req, res) {
+    console.log('http://www.countyhealthrankings.org/chr/data/county/2016/'+req.params.stateId+'/all');
+    request({
+        uri: 'http://www.countyhealthrankings.org/chr/data/county/2016/'+req.params.stateId+'/all',
+        json: true,
+        method: 'GET'
+    }, function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            res.json(body);
+        }
+    })
+})
+
+
 // application -------------------------------------------------------------
 app.get('*', function(req, res) {
     res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)

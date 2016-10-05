@@ -3,7 +3,7 @@
  *
  */
 var app = angular.module('HealthyTrackerUS', []);
-app.controller('MainController', ['$scope', '$http', 'CountyService', function($scope, $http, CountyService) {
+app.controller('MainController', ['$scope', '$http', 'StateService', function($scope, $http, StateService) {
 
     initController();
 
@@ -12,8 +12,8 @@ app.controller('MainController', ['$scope', '$http', 'CountyService', function($
         //     $scope.data = data;
         //     console.log(data);
         // })
-        CountyService.getAllCounties(function (counties) {
-        	console.log(counties);
+        StateService.getAllCountyByState(48, function (data) {
+        	console.log(data);
         	// body...
         });
     }
