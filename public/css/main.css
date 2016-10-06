@@ -10,3 +10,21 @@
 .panel{
 	padding:20px;
 }
+
+.navbar-inverse {
+    background-color: #1d9d74;
+}
+
+.fa.pointer{
+	cursor: pointer;
+}
+
+td:first-child {
+    font-size: 14px;
+    color: #02779E;
+}
+
+tr:first-child>th:not(:first-child) {
+    color: #eb540a;
+    font-size: 13px;
+}

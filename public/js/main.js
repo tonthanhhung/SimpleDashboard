@@ -15,16 +15,29 @@ app.controller('MainController', ['$scope', '$http', 'StateService', 'HealthRank
         measureFactorsData: [],
         comparingCounties: [],
         addCountyToCompare: addCountyToCompare,
+        removeCountyFromCompare: removeCountyFromCompare
     }
     $scope.healthyTracker = healthyTracker;
 
 
-    function addCountyToCompare() {
-        healthyTracker.comparingCounties.push(healthyTracker.selectedCounty);
-        $scope.selectedStateId = -1;
-        healthyTracker.selectedState = null;
-        healthyTracker.selectedCounty = {};
+    function removeCountyFromCompare(county) {
+        healthyTracker.comparingCounties.splice(healthyTracker.comparingCounties.indexOf(county), 1);
         updateCompareData();
+    }
+
+    function addCountyToCompare() {
+        console.debug("healthyTracker.selectedCounty", healthyTracker.selectedCounty);
+        if (healthyTracker.selectedCounty) {
+            if (healthyTracker.comparingCounties.indexOf(healthyTracker.selectedCounty) == -1) {
+                healthyTracker.comparingCounties.push(healthyTracker.selectedCounty);
+                updateCompareData();
+            }
+            console.debug("we will remove the current selected");
+            $scope.selectedStateId = -1;
+            healthyTracker.selectedState = null;
+            healthyTracker.selectedCounty = null;
+        }
+
     }
 
     function updateCompareData() {
@@ -37,19 +50,22 @@ app.controller('MainController', ['$scope', '$http', 'StateService', 'HealthRank
             var newTable = [];
             var measuresTable = [];
             healthyTracker.measureFactors = data.measures;
-            console.log('county avail:',_counties);
+            console.log('county avail:', _counties);
             for (id in _counties) {
-            	if (id == "000") continue;
+                if (id == "000") continue;
                 var _county = _counties[id];
-                console.log('LOOK AT ME',_counties[id]);
                 var _countyMeasure = _county.measures;
                 var measuresForCounty = [];
                 for (cmid in _countyMeasure) {
-                	if (!_countyMeasure[cmid]) {
-                		console.error(cmid,_countyMeasure);
-                		continue;
-                	}
-                    measuresForCounty.push(_countyMeasure[cmid].data);
+                    if (!_countyMeasure[cmid]) {
+                        console.error(cmid, _countyMeasure);
+                        continue;
+                    }
+                    if (_countyMeasure[cmid].data != '&nbsp;')
+                        measuresForCounty.push((_countyMeasure[cmid].data));
+                    else {
+                        measuresForCounty.push('')
+                    }
                 }
                 measuresTable.push(measuresForCounty);
             }
@@ -59,17 +75,21 @@ app.controller('MainController', ['$scope', '$http', 'StateService', 'HealthRank
             var arrayOfSorredMeasureFactor = sortedMeasures.map(function(item) {
                 return item.nameFull;
             })
-            var newMeasureTable = measuresTable[0].map(function(col, i) {
-                return measuresTable.map(function(row) {
-                    return row[i];
-                })
-            });
-            newMeasureTable.map(function(row2, j) {
-                return row2.unshift(arrayOfSorredMeasureFactor[j]);
-            });
+            if (measuresTable.length != 0) {
+                var newMeasureTable = measuresTable[0].map(function(col, i) {
+                    return measuresTable.map(function(row) {
+                        return row[i];
+                    })
+                });
+                newMeasureTable.map(function(row2, j) {
+                    return row2.unshift(arrayOfSorredMeasureFactor[j]);
+                });
+                healthyTracker.measureFactorsData = newMeasureTable;
+            } else {
+                healthyTracker.measureFactorsData = [];
+            }
 
-            healthyTracker.measureFactorsData = newMeasureTable;
-            console.debug(newMeasureTable)
+
         });
     }
 
