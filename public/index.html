@@ -2,11 +2,12 @@
 
 <head>
     <meta charset="utf-8">
+
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>My little dashboard</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='shortcut icon' href='favicon.png' type='image/x-icon'/ >
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet" type='text/css'>
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -33,6 +34,9 @@
                 </button>
                 <!-- <a class="navbar-brand" href="index.html">US Healthy Ranking</a> -->
             </div>
+
+
+
             <!-- Top Menu Items -->
             <!-- <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
@@ -134,11 +138,14 @@
                     </ul>
                 </li>
             </ul> -->
+
+
+
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <!-- <div ng-hide='true' class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Overral Health Ranking Compare</a>
                     </li>
                     <li>
                         <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
@@ -323,7 +330,7 @@
                 </div>
                 <div class="row">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover" ng-hide="healthyTracker.comparingCounties.length == 0">
                             <thead>
                                 <tr>
                                     <th>Measure Factor</th>
