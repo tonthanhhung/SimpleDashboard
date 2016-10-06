@@ -1,10 +1,36 @@
-# SimpleDashboard
-An assignment for company new-commer
+# SimpleWSAngularApplication
 
-#todo check list
- - fetch data from server
- - store data in a managable object
- - display simple data onto table
- - create dropdown box for county selection
- - restructure table for parameterized number of county
- - review code and beatify it
+## User Stories
+	This is a simple assignment to practise with WS (Restfull) and AngularJS.
+	Data for this app was taken from http://www.countyhealthrankings.org/. I'm not the owner of this data.
+
+
+	The following **required** functionality is completed:
+
+	* [x] User can add, remove county to table to compare some healthy factor.
+
+	The following **optional** features are implemented:
+
+	* [ ] Visualize data on chart, map, heatmap
+
+
+## How to run
+
+`npm install'
+'node server.js'
+
+## License
+
+    Copyright 2016 Hung Ton
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
