@@ -1,17 +1,17 @@
 # SimpleWSAngularApplication
 
 ## User Stories
-	This is a simple assignment to practise with WS (Restfull) and AngularJS.
-	Data for this app was taken from http://www.countyhealthrankings.org/. I'm not the owner of this data.
+This is a simple assignment to practise with WS (Restfull) and AngularJS.
+Data for this app was taken from http://www.countyhealthrankings.org/. I'm not the owner of this data.
 
 
-	The following **required** functionality is completed:
+The following **required** functionality is completed:
 
-	* [x] User can add, remove county to table to compare some healthy factor.
+* [x] User can add, remove county to table to compare some healthy factor.
 
-	The following **optional** features are implemented:
+The following **optional** features are implemented:
 
-	* [ ] Visualize data on chart, map, heatmap
+* [ ] Visualize data on chart, map, heatmap
 
 
 ## How to run
