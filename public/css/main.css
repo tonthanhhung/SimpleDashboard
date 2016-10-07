@@ -22,6 +22,7 @@
 td:first-child {
     font-size: 14px;
     color: #02779E;
+        width: 30%
 }
 
 tr:first-child>th:not(:first-child) {

@@ -2,6 +2,8 @@ app.factory('HealthRankingService', ['$http', function($http){
 	var healthRankingService = {
 		getCompareHealthRankingCountiesResult: getCompareHealthRankingCountiesResult
 	};
+
+	// @webservice
 	function getCompareHealthRankingCountiesResult(countyStateIds, year) {
 		var countyStateIdsStr = countyStateIds.join('+');
 		console.log("countyStateIdsStr",countyStateIdsStr);
