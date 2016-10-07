@@ -2,19 +2,39 @@
  * HealthyTrackerUS Module
  *
  */
+
 var app = angular.module('HealthyTrackerUS', ["ui.router", "ngRoute"]);
 
 
 app.filter('orderObjectBy', function() {
     return function(items, field, reverse) {
+
+        // CODEREVIEW: how to clone array
         var filtered = [];
         angular.forEach(items, function(item) {
             filtered.push(item);
         });
         filtered.sort(function(a, b) {
-            return (a[field] > b[field] ? 1 : -1);
+            // CODEREVIEW: how to write sort functions ?
+            return a[field] > b[field] ? 1 : -1;
         });
+        // CODEREVIEW: performance
         if (reverse) filtered.reverse();
+        //
+        /* CODEREVIEW: elabprate on this
+        reverse = reverse ? -1 : 1;
+        array.slice().sort(function() {
+            return reverse * a[field] > b[field] ? 1 : -1;
+        });
+
+        items.clone().sort(reverse?asc:desc);
+        items.clone().sort(byField.bind(null,reverse:?-1,1));
+        
+        function byField(order,a,b){
+            return order * a[field] > b[field] ? 1 : -1 ;
+        } 
+        */
+
         return filtered;
     };
 });
@@ -31,39 +51,32 @@ app.filter('orderObjectBy', function() {
 //         });
 // });
 
-app.config(function($stateProvider) {
-
-
-    var healthyRankingCompare = {
+app.config(function($stateProvider) { 
+    // CODEREVIEW: minor, do I need this to e called 3 times ?
+    // no API to set them with one call ?    
+    $stateProvider.state({
         name: 'healthyRankingCompare',
         url: '/healthyRankingCompare/:comparedCounties',
         templateUrl: '../template/healthyRankingCompare.html'
-    }
-
-    var healthyRankingCompareDefault = {
+    });
+    $stateProvider.state({
         name: 'healthyRankingCompareDefault',
         url: '/healthyRankingCompare',
         templateUrl: '../template/healthyRankingCompare.html'
-    }
-
-    var aboutState = {
+    });
+    $stateProvider.state({
         name: 'about',
         url: '/about',
         template: '<h3>This is about page</h3>'
-    }
-
-    $stateProvider.state(healthyRankingCompare);
-    $stateProvider.state(healthyRankingCompareDefault);
-
-    $stateProvider.state(aboutState);
+    });
 });
 
-app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
+app.run(['$route', '$rootScope', '$location', function($route, $rootScope, $location) {
     var original = $location.path;
-    $location.path = function (path, reload) {
+    $location.path = function(path, reload) {
         if (reload === false) {
             var lastRoute = $route.current;
-            var un = $rootScope.$on('$locationChangeSuccess', function () {
+            var un = $rootScope.$on('$locationChangeSuccess', function() {
                 $route.current = lastRoute;
                 un();
             });
