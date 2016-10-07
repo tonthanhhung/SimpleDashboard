@@ -1,0 +1,68 @@
+Request Count:   72
+Unique Hosts:    4
+Bytes Sent:      24,200		(headers:24,200; body:0)
+Bytes Received:  1,128,772	(headers:17,131; body:1,111,641)
+
+ACTUAL PERFORMANCE
+--------------
+Requests started at:		11:19:39.975
+Responses completed at:	11:19:57.787
+Sequence (clock) duration:	00:00:17.812
+Aggregate Session duration:	00:01:24.804
+TCP/IP Connect duration:	76ms
+
+RESPONSE CODES
+--------------
+HTTP/200: 	71
+HTTP/401: 	1
+
+RESPONSE BYTES (by Content-Type)
+--------------
+             application/json: 683,729
+       application/javascript: 174,333
+                     text/css: 131,591
+application/vnd.ms-fontobject: 60,776
+                    text/html: 30,477
+              text/javascript: 29,329
+                    ~headers~: 17,131
+                 image/x-icon: 1,406
+
+REQUESTS PER HOST
+--------------
+           localhost: 66
+ ajax.googleapis.com: 3
+cdnjs.cloudflare.com: 2
+    it.hq.gratex.com: 1
+
+
+ESTIMATED WORLDWIDE PERFORMANCE
+--------------
+The following are VERY rough estimates of download times when hitting servers based in Seattle.
+
+US West Coast (Modem - 6KB/sec)
+	RTT:		7.20s
+	Elapsed:	199.20s
+
+Japan / Northern Europe (Modem)
+	RTT:		10.80s
+	Elapsed:	202.80s
+
+China (Modem)
+	RTT:		32.40s
+	Elapsed:	224.40s
+
+US West Coast (DSL - 30KB/sec)
+	RTT:		7.20s
+	Elapsed:	45.20s
+
+Japan / Northern Europe (DSL)
+	RTT:		10.80s
+	Elapsed:	48.80s
+
+China (DSL)
+	RTT:		32.40s
+	Elapsed:	70.40s
+
+
+________________
+Learn more about HTTP performance at http://fiddler2.com/r/?HTTPPERF

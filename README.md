@@ -17,7 +17,12 @@ The following **optional** features are implemented:
 ## How to run
 
 	npm install
-	node server.js
+	node server.js # node server.js &
+    
+    # open browser
+    open http://localhost:8080/#/healthyRankingCompare
+
+    # TODO: how to stop the server ?
 
 ## License
 
