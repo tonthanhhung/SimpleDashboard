@@ -1,0 +1,7 @@
+#! /bin/bash
+echo TOTAL FILE IN PROJ: $(find $1 -type f -not -path "*/node_modules*" |wc -l)
+echo COUNT BY TYPE
+cloc . --exclude-dir=node_modules --csv --csv-delimiter=' ' --quiet| sed '1,2d' |awk '{print $2": "$1}'|sort -n -k2 -t':'
+echo WEBSERVICE USED: $(grep -rh '@webservice' $1| wc -l)
+echo IF CONDITION USED, INCLUDE LIBS, node_modules FOLDER 
+grasp if . -rc
