@@ -19,7 +19,7 @@ The following **optional** features are implemented:
     cd [path-to-where-you-put-this]
 	npm install
 	node server.js
-    open web broser and access: http://localhost:8080/#/healthy-factor-compare
+    open web broser and access: http://localhost:8080/#/home
 
 ## Lesson learned
     - Check dependency missing: using "dependency-check"

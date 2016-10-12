@@ -5,7 +5,7 @@ app.factory('HealthRankingService', ['$http', function($http){
 
 	// @webservice
 	function getCompareHealthRankingCountiesResult(compareOptions) {
-		var url='/api/health/compare/'+compareOptions.yearToCompare+'?counties='+compareOptions.countyStateIds.join('+');
+		var url='/api/health/compare/'+encodeURIComponent(compareOptions.yearToCompare)+'?counties='+encodeURIComponent(compareOptions.countyStateIds.join('+'));
 		return $http.get(url);
 	}
 	return healthRankingService;

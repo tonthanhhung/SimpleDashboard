@@ -11,16 +11,8 @@ app.config(function($stateProvider) {
     $stateProvider
         .state('home', {
             name: 'healthyFactorCompareDefault',
-            url: '/index?compareIds',
+            url: '/home?compareIds',
             templateUrl: '../module/healthy-factor-compare/view/healthy-factor-compare.html'
-        }).state('home.compare', {
-            name: 'healthyFactorCompareDefault',
-            url: '?compareIds',
-            templateUrl: '../module/healthy-factor-compare/view/healthy-factor-compare.html',
-            params: {
-                compareIds:""
-            },
-            reloadOnSearch: false
         });
 
 });

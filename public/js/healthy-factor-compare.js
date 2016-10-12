@@ -1,7 +1,8 @@
 "use strict";
 
-app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http', '$timeout', 'StateService', 'HealthRankingService', '$location', '$stateParams', '$state',
-    function($rootScope, $scope, $http, $timeout, StateService, HealthRankingService, $location, $stateParams, $state) {
+app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http', '$timeout', 'StateService', 'HealthRankingService', '$location', '$stateParams', '$state', "$httpParamSerializer", "$interpolate",
+
+    function($rootScope, $scope, $http, $timeout, StateService, HealthRankingService, $location, $stateParams, $state, $httpParamSerializer, $interpolate) {
 
         var MSGCOUNTY_EXIST = "The selected county is added in compare!";
 
@@ -103,103 +104,33 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
 
         function buildChartobject(measureFactorsData, selectedFactors) {
             var templateObj = {
-                "type": "LineChart",
-                "displayed": false,
-                "data": {
-                    "cols": [{
-                        "id": "month",
-                        "label": "Month",
-                        "type": "string",
-                        "p": {}
-                    }, {
-                        "id": "laptop-id",
-                        "label": "Laptop",
-                        "type": "number",
-                        "p": {}
-                    }, {
-                        "id": "desktop-id",
-                        "label": "Desktop",
-                        "type": "number",
-                        "p": {}
-                    }, {
-                        "id": "server-id",
-                        "label": "Server",
-                        "type": "number",
-                        "p": {}
-                    }, {
-                        "id": "cost-id",
-                        "label": "Shipping",
-                        "type": "number"
-                    }],
-                    "rows": [{
-                        "c": [{
-                                "v": "January"
-                            }, {
-                                "v": 19,
-                                "f": "42 items"
-                            }, {
-                                "v": 12,
-                                "f": "Ony 12 items"
-                            }, {
-                                "v": 7,
-                                "f": "7 servers"
-                            }, {
-                                "v": 4
-                            },
-                            null
-                        ]
-                    }, {
-                        "c": [{
-                                "v": "February"
-                            }, {
-                                "v": 13
-                            }, {
-                                "v": 1,
-                                "f": "1 unit (Out of stock this month)"
-                            }, {
-                                "v": 12
-                            }, {
-                                "v": 2
-                            },
-                            null
-                        ]
-                    }, {
-                        "c": [{
-                                "v": "March"
-                            }, {
-                                "v": 24
-                            }, {
-                                "v": 5
-                            }, {
-                                "v": 11
-                            }, {
-                                "v": 6
-                            },
-                            null
-                        ]
-                    }]
+                type: "LineChart",
+                displayed: false,
+                data: {
+                    cols: [],
+                    rows: []
                 },
-                "options": {
-                    "title": "Healthy Factor Visualization",
-                    "isStacked": "true",
-                    "fill": 20,
-                    'height': 360,
-                    "displayExactValues": true,
-                    "vAxis": {
-                        "title": "",
-                        "gridlines": {
-                            "count": 10
+                options: {
+                    title: "Healthy Factor Visualization",
+                    isStacked: "true",
+                    fill: 20,
+                    height: 360,
+                    displayExactValues: true,
+                    vAxis: {
+                        title: "",
+                        gridlines: {
+                            count: 10
                         }
                     },
-                    "hAxis": {
-                        "title": ""
+                    hAxis: {
+                        title: ""
                     },
-                    "tooltip": {
-                        "isHtml": false
+                    tooltip: {
+                        isHtml: false
                     }
                 },
-                "formatters": {},
-                "view": {}
+                formatters: {},
+                view: {}
             };
             // Build cols data base on each county
             templateObj.data.cols = [{
@@ -228,7 +159,6 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
                         }
                     })
                 };
-
             });
             // console.debug("templateOb", templateObj);
             return templateObj;
@@ -240,9 +170,7 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
 
         // Initialize Controller
         function initController() {
-
             loadAllStates();
-
             if (!!($state.params.compareIds)) {
                 updateCompareData($state.params.compareIds.split('+'), function(compareResult) {
                     healthyTracker.comparingCounties = Object.keys(compareResult.counties).filter(function(key) {
@@ -258,9 +186,7 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
                         }
                     })
                 });
-
             }
-
         }
 
         function loadAllStates() {

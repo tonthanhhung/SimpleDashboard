@@ -11,7 +11,7 @@ app.factory('StateService', ['$http', function($http) {
 
     // @webservice
     function getAllCountyByState(stateId) {
-        return $http.get('/api/common/counties/' + stateId);
+        return $http.get('/api/common/counties/' + encodeURIComponent(stateId));
     }
 
     return stateService;
