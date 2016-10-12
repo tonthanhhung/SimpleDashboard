@@ -33,15 +33,3 @@ app.filter('orderObjectBy', function() {
     };
 });
 
-// TODO: review and remove
-// app.config(function($routeProvider) {
-//     $routeProvider
-//         .when("/", {
-//             templateUrl: "../template/healthyRankingCompare.html",
-//             controller: "MainController",
-//             reloadOnSearch: false,
-//         })
-//         .when("/red", {
-//             templateUrl: "../template/red.html"
-//         });
-// });
