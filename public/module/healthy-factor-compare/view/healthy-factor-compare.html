@@ -1,0 +1,68 @@
+<div ng-controller="HealthyFactorCompareController">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+            <i class="fa fa-heartbeat" aria-hidden="true"></i>
+                Health Rankings In US
+            </h1>
+            <small>Source from <a href="http://www.countyhealthrankings.org">County Health Rankings</a></small>
+        </div>
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label for="stateSelector">Select State</label>
+                        <select name="" id="stateSelector" class="form-control" ng-model="selectedStateId" ng-change="healthyTracker.updateSelectedState(selectedStateId)">
+                            <option ng-repeat="state in healthyTracker.usAllStates | orderBy" value="{{state.id}}">
+                                {{state.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group" ng-hide="!healthyTracker.selectedState">
+                        <label for="stateSelector">Select County</label>
+                        <select name="" id="countySelector" class="form-control" ng-model="selectedCountyId" ng-change="healthyTracker.updateSelectedCounty(selectedCountyId)">
+                            <option ng-repeat="county in healthyTracker.selectedState.counties | orderObjectBy:'name'" value="{{county.id}}">
+                                {{county.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <button ng-disabled="healthyTracker.isChartView" type="button" ng-click="healthyTracker.addCountyToCompare()" class="btn btn-primary">Add to compare</button>
+                    <button title="Select measure factors to view" ng-disabled="healthyTracker.selectedFactors.length == 0" type="button" ng-click="healthyTracker.visializeChart()" class="btn btn-primary">{{healthyTracker.isChartView ? "View Table":"View Chart"}}</button>
+                    <h5 class="text-danger" ng-show="healthyTracker.isAddDuplicate">County {{healthyTracker.selectedCounty.name}} is already existed</h5>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-show="healthyTracker.isChartView" google-chart chart="healthyTracker.myChartObject"></div>
+        <div class="table-responsive" ng-hide="healthyTracker.isChartView">
+            <table class="table table-hover healthy-compare-table" ng-hide="healthyTracker.comparingCounties.length == 0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Measure Factor</th>
+                        <th ng-repeat="county in healthyTracker.comparingCounties">
+                            {{county.name+", "+county.state_abbr}}
+                            <i title="Remove from comparing county" class="fa fa-times text-danger pointer" ng-click="healthyTracker.removeCountyFromCompare(county)"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-class="{'row-selected':factorRow[0].isSelected}" ng-repeat="factorRow in healthyTracker.measureFactorsData">
+                        <td class='col-checkbox'>
+                            <div class="checkbox">
+                                <input id="{{'factor_'+factorRow[0].id}}" ng-disabled="!(healthyTracker.selectedFactorType == '' || healthyTracker.selectedFactorType == factorRow[0].unitType)" ng-change="healthyTracker.factorSelectChange($index)" class='factor-checkbox' type="checkbox" value="" ng-model="factorRow[0].isSelected">
+                            </div>
+                        </td>
+                        <td><label for="{{'factor_'+factorRow[0].id}}">{{factorRow[0].nameFull}}</label></td>
+                        <td ng-repeat="valueByCounty in factorRow" ng-hide="$first || $root.isLoading" ng-class="{'text-danger text-bold':valueByCounty.isMax, 'text-primary text-bold':valueByCounty.isMin}">{{valueByCounty.data.replace("&amp;nbsp;","N/A")}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

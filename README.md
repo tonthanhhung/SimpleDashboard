@@ -15,9 +15,14 @@ The following **optional** features are implemented:
 
 
 ## How to run
-
+    
+    cd [path-to-where-you-put-this]
 	npm install
 	node server.js
+    open web broser and access: http://localhost:8080/#/healthy-factor-compare
+
+## Lesson learned
+    - Check dependency missing: using "dependency-check"
 
 ## License
 

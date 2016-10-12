@@ -1,24 +1,47 @@
-/**
- * HealthyTrackerUS Module
- *
- */
-var app = angular.module('HealthyTrackerUS', ["ui.router", "ngRoute"]);
+"use strict";
 
+var app = angular.module('healthyFactorCompare', ["ui.router", "ngRoute", "googlechart"]);
 
+app.run(['$rootScope', function($rootScope) {
+    $rootScope.isLoading = false;
+    //TODO: Put our initialize for this Angular Web Application here.
+}])
+
+app.config(function($stateProvider) {
+    $stateProvider
+        .state('home', {
+            name: 'healthyFactorCompareDefault',
+            url: '/index?compareIds',
+            templateUrl: '../module/healthy-factor-compare/view/healthy-factor-compare.html'
+        }).state('home.compare', {
+            name: 'healthyFactorCompareDefault',
+            url: '?compareIds',
+            templateUrl: '../module/healthy-factor-compare/view/healthy-factor-compare.html',
+            params: {
+                compareIds:""
+            },
+            reloadOnSearch: false
+        });
+
+});
+
+// Custom Filter for HashMap Obect Sorting
 app.filter('orderObjectBy', function() {
-    return function(items, field, reverse) {
-        var filtered = [];
-        angular.forEach(items, function(item) {
-            filtered.push(item);
+    return function(itemsById, field, reverse) {
+        var reverseFactor = (!reverse) ? 1 : -1;
+        var itemsToSort = [];
+        // Clone map of objects
+        angular.forEach(itemsById, function(item) {
+            itemsToSort.push(item);
         });
-        filtered.sort(function(a, b) {
-            return (a[field] > b[field] ? 1 : -1);
+        itemsToSort.sort(function(a, b) {
+            return reverseFactor * (a[field] >= b[field] ? 1 : -1);
         });
-        if (reverse) filtered.reverse();
-        return filtered;
+        return itemsToSort;
     };
 });
 
+// TODO: review and remove
 // app.config(function($routeProvider) {
 //     $routeProvider
 //         .when("/", {
@@ -30,44 +53,3 @@ app.filter('orderObjectBy', function() {
 //             templateUrl: "../template/red.html"
 //         });
 // });
-
-app.config(function($stateProvider) {
-
-
-    var healthyRankingCompare = {
-        name: 'healthyRankingCompare',
-        url: '/healthyRankingCompare/:comparedCounties',
-        templateUrl: '../template/healthyRankingCompare.html'
-    }
-
-    var healthyRankingCompareDefault = {
-        name: 'healthyRankingCompareDefault',
-        url: '/healthyRankingCompare',
-        templateUrl: '../template/healthyRankingCompare.html'
-    }
-
-    var aboutState = {
-        name: 'about',
-        url: '/about',
-        template: '<h3>This is about page</h3>'
-    }
-
-    $stateProvider.state(healthyRankingCompare);
-    $stateProvider.state(healthyRankingCompareDefault);
-
-    $stateProvider.state(aboutState);
-});
-
-app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
-    var original = $location.path;
-    $location.path = function (path, reload) {
-        if (reload === false) {
-            var lastRoute = $route.current;
-            var un = $rootScope.$on('$locationChangeSuccess', function () {
-                $route.current = lastRoute;
-                un();
-            });
-        }
-        return original.apply($location, [path]);
-    };
-}])
