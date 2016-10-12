@@ -14,7 +14,7 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
             factorSelectChange: factorSelectChange,
             visializeChart: visializeChart,
 
-            usAllStates: [],
+            usAllStates: {},
             selectedFactors: [],
             selectedState: {},
             selectedCounty: {},
@@ -215,7 +215,7 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
                     type: 'number',
                 }
             }));
-            console.debug("templateObj.data.cols", templateObj.data.cols);
+            // console.debug("templateObj.data.cols", templateObj.data.cols);
 
             templateObj.data.rows = measureFactorsData.filter(function(factor, index) {
                 return ~selectedFactors.indexOf(index);
@@ -230,7 +230,7 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
                 };
 
             });
-            console.debug("templateOb", templateObj);
+            // console.debug("templateOb", templateObj);
             return templateObj;
         }
 
@@ -249,7 +249,7 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
                         return key != "000";
                     }).map(function(countyStateKey) {
                         var county = compareResult.counties[countyStateKey];
-                        var abbreviation = healthyTracker.usAllStates ? healthyTracker.usAllStates[+county.state_fips].abbreviation : "";
+                        var abbreviation = Object.keys(healthyTracker.usAllStates).length ? healthyTracker.usAllStates[+county.state_fips].abbreviation : "";
                         return {
                             name: county.name,
                             state_abbr: abbreviation,
@@ -270,7 +270,7 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
         }
 
         function updateCompareData(countyStateIds, callbackFn) {
-            console.debug("countyStateIds", countyStateIds);
+            // console.debug("countyStateIds", countyStateIds);
             var countyStateIdsJoined = countyStateIds.join("+");
 
             if ($state.params.compareIds != countyStateIdsJoined) {
@@ -323,8 +323,6 @@ app.controller('HealthyFactorCompareController', ['$rootScope', '$scope', '$http
                         !~values[i].data.indexOf(":") ? "N" : 'N/A';
                 }
             }
-
-
 
             function setMaxMinIntoTheValues(measureVals) {
                 if (!measureVals || !measureVals.length) {
